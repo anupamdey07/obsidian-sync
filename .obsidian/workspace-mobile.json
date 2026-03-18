@@ -141,6 +141,7 @@
         "state": {
           "type": "backlink",
           "state": {
+            "file": "FabriOS Whitepaper/FabricOS v2.md",
             "collapseAll": false,
             "extraContext": false,
             "sortOrder": "alphabetical",
@@ -197,6 +198,9 @@
   },
   "active": "659661fd1eff171d",
   "lastOpenFiles": [
+    "/CubeBot Project/CubeBot-Design.md",
+    "CubeBot Project/CubeBot-Design.md",
+    "/CubeBot Project",
     "FabriOS Whitepaper/FabricOS v1.md",
     "FabriOS Whitepaper/FabricOS v2.md",
     "FabriOS Whitepaper/FabricOS.md",
