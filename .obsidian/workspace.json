@@ -4,24 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "3af0dfbd97fc768c",
+        "id": "bbc2a676c10df175",
         "type": "tabs",
         "children": [
           {
-            "id": "3fcce3932a0d2dd3",
+            "id": "53cfa7cc96e0299c",
             "type": "leaf",
             "state": {
-              "type": "canvas",
-              "state": {
-                "file": "Untitled 1.canvas",
-                "viewState": {
-                  "x": 0,
-                  "y": 0,
-                  "zoom": 0
-                }
-              },
-              "icon": "lucide-layout-dashboard",
-              "title": "Untitled 1"
+              "type": "empty",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "New tab"
             }
           }
         ]
@@ -198,10 +191,13 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "3fcce3932a0d2dd3",
+  "active": "9138c0eb9406e369",
   "lastOpenFiles": [
-    "Untitled.canvas",
     "Untitled 1.canvas",
+    "Excalidraw/Drawing 2026-03-18 19.23.30.excalidraw.md",
+    "Excalidraw/Drawing 2026-03-18 19.23.36.excalidraw.md",
+    "Excalidraw",
+    "Untitled.canvas",
     "2026-03-18.md",
     "Untitled.base",
     "Welcome.md",
