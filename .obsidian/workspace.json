@@ -11,10 +11,12 @@
             "id": "53cfa7cc96e0299c",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
-              "icon": "lucide-file",
-              "title": "New tab"
+              "type": "excalidraw",
+              "state": {
+                "file": "CubeBot Project/CubeBot Demo.md"
+              },
+              "icon": "excalidraw-icon",
+              "title": "CubeBot Demo"
             }
           }
         ]
@@ -152,13 +154,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "2026-03-18.md",
+                "file": "CubeBot Project/CubeBot Demo.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of 2026-03-18"
+              "title": "Outline of CubeBot Demo"
             }
           },
           {
@@ -191,13 +193,13 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "9138c0eb9406e369",
+  "active": "53cfa7cc96e0299c",
   "lastOpenFiles": [
+    "Untitled.canvas",
     "Untitled 1.canvas",
     "Excalidraw/Drawing 2026-03-18 19.23.30.excalidraw.md",
     "Excalidraw/Drawing 2026-03-18 19.23.36.excalidraw.md",
     "Excalidraw",
-    "Untitled.canvas",
     "2026-03-18.md",
     "Untitled.base",
     "Welcome.md",
