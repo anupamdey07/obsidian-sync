@@ -39,14 +39,12 @@
             "id": "659661fd1eff171d",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "image",
               "state": {
-                "file": "FabriOS Whitepaper/Dual‑Brain Research & Writing Playbook.md",
-                "mode": "source",
-                "source": false
+                "file": "CubeBot Project/PXL_20260318_125647187.MP.jpg"
               },
-              "icon": "lucide-file",
-              "title": "Dual‑Brain Research & Writing Playbook"
+              "icon": "lucide-image",
+              "title": "PXL_20260318_125647187.MP"
             }
           }
         ],
@@ -199,12 +197,12 @@
   },
   "active": "659661fd1eff171d",
   "lastOpenFiles": [
+    "FabriOS Whitepaper/Dual‑Brain Research & Writing Playbook.md",
     "gemini-scribe/Prompts/example-expert.md",
     "gemini-scribe/Prompts",
     "gemini-scribe/skills",
     "gemini-scribe",
     "CubeBot-Design.md",
-    "FabriOS Whitepaper/Dual‑Brain Research & Writing Playbook.md",
     "CubeBot Project/PXL_20260318_125647187.MP.jpg",
     "FabriOS Whitepaper/FabricOS v2.md",
     "/CubeBot Project/CubeBot-Design.md",
