@@ -141,7 +141,7 @@
         "state": {
           "type": "backlink",
           "state": {
-            "file": "FabriOS Whitepaper/FabricOS v2.md",
+            "file": "FabriOS Whitepaper/Dual‑Brain Research & Writing Playbook.md",
             "collapseAll": false,
             "extraContext": false,
             "sortOrder": "alphabetical",
@@ -193,19 +193,24 @@
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
       "command-palette:Open command palette": false,
-      "bases:Create new base": false
+      "bases:Create new base": false,
+      "gemini-scribe:Gemini Scribe: Agent Mode": false
     }
   },
   "active": "659661fd1eff171d",
   "lastOpenFiles": [
+    "gemini-scribe/Prompts/example-expert.md",
+    "gemini-scribe/Prompts",
+    "gemini-scribe/skills",
+    "gemini-scribe",
+    "CubeBot-Design.md",
+    "FabriOS Whitepaper/Dual‑Brain Research & Writing Playbook.md",
     "CubeBot Project/PXL_20260318_125647187.MP.jpg",
     "FabriOS Whitepaper/FabricOS v2.md",
     "/CubeBot Project/CubeBot-Design.md",
-    "CubeBot-Design.md",
     "/CubeBot Project",
     "FabriOS Whitepaper/FabricOS v1.md",
     "FabriOS Whitepaper/FabricOS.md",
-    "FabriOS Whitepaper/Dual‑Brain Research & Writing Playbook.md",
     "FabriOS Whitepaper/Dual Brain Research Method.md",
     "CubeBot Project/image-20.png",
     "CubeBot Project/Drawing 2026-03-18 14.06.21.excalidraw.md",
