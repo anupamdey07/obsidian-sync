@@ -55,12 +55,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "FabriOS Whitepaper/Left Brain UI - Spatial Neural Node.md",
+                "file": "FabriOS Whitepaper/Untitled.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Left Brain UI - Spatial Neural Node"
+              "title": "Untitled"
             }
           }
         ],
@@ -213,8 +213,9 @@
   },
   "active": "e0cef25fba1f8aae",
   "lastOpenFiles": [
-    "FabriOS Whitepaper/Research Paper Skeleton.md",
     "FabriOS Whitepaper/Left Brain UI - Spatial Neural Node.md",
+    "FabriOS Whitepaper/Untitled.md",
+    "FabriOS Whitepaper/Research Paper Skeleton.md",
     "FabriOS Whitepaper/Biological CI CD.md",
     "FabriOS Whitepaper/Dual‑Brain Research & Writing Playbook.md",
     "CubeBot Project/2026-03-18.md",
