@@ -416,9 +416,10 @@ fabric-os/
 │       ├── longhorn-values.yaml
 │       ├── minio-helm-values.yaml
 │       ├── karakeep-statefulset.yaml
-│       └── openclaw-workspace-pvc.yaml
+│       └── hermesagest-workspace-pvc.yaml
 ├── compose/                        # Prototype stack
 │   └── docker-compose.yaml
+│   └── hermes-agent-config.yaml
 ├── linter/                         # Deterministic Linter scripts
 ├── schemas/                        # Manifest.json + verdict drafts
 ├── system2/                        # Phi-4 rejection logic prompts
