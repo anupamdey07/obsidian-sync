@@ -1,5 +1,5 @@
 # FABRICOS WHITEPAPER: The "OpenClaw" of the Physical Era
-**Date:** March 2026 | **Author:** Onu (MachbarTech) | **Version:** 2.0 (Consolidated)
+**Date:** March 2026 | **Author:** Onu (MachbarTech) | **Version:** 2.1 (Consolidated)
 
 ---
 
@@ -164,19 +164,49 @@ Cold Start → Talos boots → fabric-agent probes hardware
 ---
 
 ## 7. KNOWLEDGE MATURATION & BIOLOGICAL CI/CD
-The transition from creative thought to robotic action is an automated Continual Evolution pipeline:
+The transition from creative thought to robotic action is an automated Continual Evolution pipeline. Every action the Left Brain proposes passes through a rigorously defined evaluation and promotion chain before reaching the hardware layer.
 
-* **Left-Brain CI (Creative Sandbox):** Rapid, iterative testing where the LLM can hallucinate and prototype new Python/Docker drivers when new hardware connects. Runs as ephemeral tool-worker Pods.
-* **Right-Brain CI (Deterministic Linter):** The strict gatekeeper. Experimental code must pass:
+### 7.1. The Command Manifest & Risk Tiers
+The heart of the evaluation system is a **pre-generated, signed registry** of every action the Left Brain is permitted to propose. System 2 (the policy-engine SLM) is trained on this manifest — a compiled library of command sheets, packages, and metadata.
+
+Every request is categorized into a **Risk Tier** that determines the depth of the CI/CD check:
+
+* **Risk Tier 0 (Auto-Approved):** Read-only queries, status checks, UI navigation. System 2 does not wake up; action executes immediately.
+* **Risk Tier 1 (Fast-Path):** Simple match against the manifest for instant verification. Examples: launching known containers, querying Zenoh nodes.
+* **Risk Tier 2 (Deep Eval):** Required for any action that mutates configurations, installs packages, or writes to the Right Brain filesystem. Triggers full Deterministic Linter pipeline.
+* **Unknown Commands:** Hard block with no negotiation permitted. The Left Brain receives a rejection and must throw a `RejectedActionError` immediately.
+
+### 7.2. The Three-Stage Maturation Pipeline
+A new capability must pass through three distinct phases before it is permanently added to the system's repertoire:
+
+* **Phase I: Left-Brain CI (Creative Sandbox):** Rapid, iterative testing where the LLM is allowed to hallucinate and prototype new Python/Docker drivers when new hardware connects. Runs as ephemeral tool-worker Pods. "Hallucinations" are permitted as part of the creative prototyping process.
+* **Phase II: Right-Brain CI (Deterministic Linter):** The strict gatekeeper. To pass, experimental code must satisfy three requirements:
   1. **Formal Schema Check:** Matches strict Zenoh-RPC naming conventions.
   2. **Resource Sandboxing:** Simulates memory/CPU limits to prevent OOM crashes (Kubernetes resource limits).
-  3. **Property-Based Testing:** Fuzz-tests code with edge-case physical inputs.
-* **Promotion:** Once passed, the skill is signed by System 2 (policy-engine) and deployed as an immutable Kubernetes workload, permanently upskilling the system.
+  3. **Property-Based Testing:** Fuzz-tests code with edge-case physical inputs using frameworks like Hypothesis.
+* **Phase III: Promotion:** Once the code survives the linter, it is signed by System 2 (policy-engine) and deployed as an immutable Kubernetes workload via GitOps, permanently upskilling the system.
 
-The GitOps flow:
+### 7.3. Structured Evaluation: JSON Verdicts
+To prevent "context rot" or endless rephrasing loops, System 2 communicates with the Left Brain exclusively through **structured JSON enums** rather than free-text prose. The verdict schema includes:
+
+```json
+{
+  "decision": "approved | rejected | deferred",
+  "risk_tier": 0,
+  "reason_code": "MANIFEST_MATCH | RESOURCE_OVERFLOW | SCHEMA_VIOLATION",
+  "retry_permitted": false,
+  "message": "Human-readable summary for UI display"
+}
+```
+
+If `retry_permitted` is `false`, the Left Brain must throw a `RejectedActionError` immediately rather than attempting to rephrase the failed intent. This deterministic communication protocol ensures System 2 never gets trapped in conversational loops.
+
+### 7.4. GitOps Flow
 ```
 Left Brain proposes skill → tool-worker tests it
-    → policy-engine validates (System 2)
+    → policy-engine evaluates (risk tier + manifest check)
+    → deterministic linter validates (schema + sandbox + fuzz)
+    → policy-engine signs verdict
     → git-reconciler commits to Git
     → Flux deploys as new Pod/workload
     → skill is live and immutable
@@ -184,17 +214,97 @@ Left Brain proposes skill → tool-worker tests it
 
 ---
 
-## 8. THE TWO-FACE INTERFACE (OPENCLAW UX)
-FabricOS presents a dual UI for operators:
+## 8. DATA MANAGEMENT & STATEFUL SERVICES
+FabricOS treats all state as Kubernetes-native primitives. The immutable host provides zero persistent storage — all durable data lives in PVCs, StatefulSets, and object storage managed by the cluster layer.
 
-* **The Crystal Touchball / Fluid Face (Left):** A fluid, chat-based VLA interface for creative flow and simple `/` commands. Served by `fabric-ui` Pods.
-* **The Deterministic Terminal (Right):** A classic Bash/Linux-like interface for system auditing, augmented with Monaco-style plugins to visualize Zenoh/ROS2 tf-trees, edit code, and manage hardware deterministically. Also served by `fabric-ui` Pods.
+### 8.1. Storage Architecture
+Three storage tiers serve different needs:
 
-The node console (fabric-agent) is the first screen and hands off to the main fluid UI. It shows status cards and an **Open Fabric** button that redirects to the `fabric-ui` Service or Tailscale-exposed ingress.
+* **Local-Path Provisioner:** Dynamic node-local PVs for homelab and single-node deployments. Watches unbound PVCs and creates volumes automatically under `/var/lib/local-path-provisioner/`. Ideal for app data, model caches, and DB state.
+* **Longhorn (RWX):** k3s-native distributed storage providing ReadWriteMany volumes for multi-Pod collaboration. Enables shared workspaces where OpenClaw agents, Fabric API, and terminal Pods see the same files simultaneously.
+* **MinIO (S3-Compatible):** Object storage for large files, fine-tuning datasets, model checkpoints, and backup. Acts as the "GDrive-like" layer accessible from any Pod via S3 API.
+
+### 8.2. Stateful Components
+
+| Component | Controller | Storage | Purpose |
+|-----------|------------|---------|---------|
+| `fabric-db` | StatefulSet | PVC (local-path) | Metadata, user data, sessions |
+| `karakeep` | StatefulSet | PVC (local-path) | Bookmarks, search index |
+| Model caches | PVC | local-path → fast SSD | LLM weights, embeddings |
+| MinIO | StatefulSet | PVC/hostPath (50Gi+) | Object storage (datasets, backups) |
+| OpenClaw workspace | RWX PVC | Longhorn | Shared agent workspace |
+
+### 8.3. Data Flow
+```
+Git (desired state)
+    ↓
+fabric-api Pod → git-reconciler → PVC-backed DB
+    ↓
+LLM requests → llm-router → model-runner PVCs
+    ↓
+Large files → MinIO object storage
+    ↓
+Shared workspace → Longhorn RWX volume (multi-Pod access)
+    ↓
+Backups → Velero / rsync to external storage
+```
+
+### 8.4. Terminal Access
+Two layers of shell access, both with zero impact on the immutable host:
+
+* **Host terminal:** `talosctl` — the main Talos interface. No SSH. Provides dashboard, node health, extension logs, and kubeconfig extraction.
+* **Cluster terminal:** Ephemeral `kubectl` debug Pods, VS Code Server Pods, or `kubectl exec` into running workloads.
+
+Terminal Pods mount shared workspace volumes, so edits are visible across all connected services.
+
+### 8.5. Migration Path
+```
+Stage 1: PVC → local-path (single node, immediate)
+Stage 2: PVC → MinIO (object storage for large files)
+Stage 3: PVC → distributed CSI (multi-node cluster scaling)
+```
+
+Data survives Pod restarts, node reboots, and PVC recreation. Data does NOT survive disk wipes or PVC deletion without backups.
 
 ---
 
-## 9. PROGRESSION ROADMAP
+## 9. THE TWO-FACE INTERFACE (OPENCLAW UX)
+FabricOS presents a dual UI for operators — a fluid creative face and a deterministic terminal face, both served by `fabric-ui` Pods.
+
+### 9.1. The Crystal Touchball / Fluid Face (Left Brain)
+A fluid, chat-based VLA interface for creative flow and intent processing. The chat is the central "gravity source" around which all other capabilities orbit.
+
+* **The "/" Command:** Universal context switch combining system search (Spotlight) with slash commands. `/camera` surfaces the camera node, `/code` opens the editor skin, `/research` spawns an agent task.
+* **Floating Neural Nodes:** Recently used apps/tools appear as **proximity-weighted orbs** orbiting the central chat. Placement mimics spatial memory:
+  * **High Frequency:** Most-used nodes orbit closest to the center.
+  * **Low Frequency:** Rarely-used nodes drift to the periphery, fade to low opacity.
+* **Context Capsules:** Each node is not just an app window but a "capsule" containing the tool's recent state and its historical connections to other nodes it interacted with.
+
+### 9.2. The Deterministic Terminal (Right Brain)
+A classic Bash/Linux-like interface for system auditing, augmented with Monaco-style plugins to visualize Zenoh/ROS2 tf-trees, edit code, and manage hardware deterministically.
+
+### 9.3. Async (Optimistic) UI Pattern
+To ensure the interface feels responsive even when System 2 is evaluating an action, the UI uses an optimistic pattern:
+
+1. When a user submits a request, the UI **immediately** shows the action as pending with a glow/pulse animation.
+2. System 2 evaluates in the background (Risk Tier + manifest check).
+3. If **approved** → state resolves, animation confirms success.
+4. If **rejected** → UI visually **snaps back** with a structured `reason_code` badge from the JSON verdict.
+
+For the MVP, floating nodes are rendered as SVG/Canvas elements using CSS physics or libraries like Framer Motion to simulate gravitational pull and spring animations.
+
+### 9.4. Latency Expectations
+System 2 evaluation latency depends on hardware:
+* **RPi / Edge Nodes:** 2–8 second evaluation delay (creates a "blocking" feel on the UI).
+* **Jetson AGX Orin:** Under 0.3 seconds — spatial interface operates in near-real-time.
+* **ASUS GX10 (Core Node):** Sub-100ms for Tier 0/1; Tier 2 Deep Eval depends on linter complexity.
+
+### 9.5. Node Console (First Screen)
+The fabric-agent node console is the initial entry point via Tailscale. It shows status cards and an **Open Fabric** button that redirects to the `fabric-ui` Service or Tailscale-exposed ingress. If Fabric UI is unhealthy, the node console stays on rescue mode with host-level recovery actions.
+
+---
+
+## 10. PROGRESSION ROADMAP
 
 ```
 Stage 1: Docker Compose prototype
@@ -217,7 +327,7 @@ The key design principle: **host layer for reachability, safety, and recovery; c
 
 ---
 
-## 10. GIT REPOSITORY STRUCTURE
+## 11. GIT REPOSITORY STRUCTURE
 
 ```
 fabric-os/
@@ -237,24 +347,47 @@ fabric-os/
 │       ├── llm-router.yaml
 │       ├── model-runners.yaml
 │       └── tool-workers.yaml
-└── compose/                    # Prototype stack
+├── compose/                    # Prototype stack
     └── docker-compose.yaml
+    ├── data/                       # Storage & stateful services
+    │   ├── local-path-provisioner.yaml
+    │   ├── longhorn-values.yaml
+    │   ├── minio-helm-values.yaml
+    │   ├── karakeep-statefulset.yaml
+    │   └── openclaw-workspace-pvc.yaml
+    ├── linter/                     # Deterministic Linter scripts
+    ├── schemas/                    # Manifest.json drafts
+    └── system2/                    # Phi-4 rejection logic prompts
 ```
 
 ---
 
-## 11. UNWRITTEN SCHEMAS & DEVELOPMENT ROADMAP
-*Topics requiring active scripting for the upcoming Proof of Concept (PoC):*
+## 12. OPEN QUESTIONS & DEVELOPMENT ROADMAP
+*Topics requiring active scripting, research, or architectural decisions for the Proof of Concept (PoC):*
+
+### 12.1. Unwritten Schemas (PoC Scoping)
 
 1. **System 2 Rejection Logic:** Scripting the exact prompt/formatting the Phi-4 model uses to issue rejection messages to the Left Brain when a deterministic safety mask is breached.
 2. **The Manifest.json Schema:** Defining the JSON structure the Right Brain uses to report hardware telemetry (RAM, GPIO, connected Zenoh nodes) to the Left Brain during a Cold Start.
 3. **Perplexity-to-Promotion Workflow:** Mapping the API routing from a Perplexity web-search result into a testable script for the Deterministic Linter.
 4. **Talos Machine Config:** Drafting the Talos machine configuration and Image Factory schematic to pin the GB10 NVIDIA drivers for the Asus GX10.
 5. **Flux GitOps Bootstrap:** Defining the Flux configuration for automated deployment of Fabric OS and LLM workloads from Git.
+6. **System 2 Verdict Schema:** Finalizing the JSON verdict structure (Section 7.3) — which `reason_code` values to define, how `deferred` decisions are handled, and whether Tier 0 bypass requires any signed manifest entry at all.
+
+### 12.2. Architecture Alignment Questions (Needs Research)
+
+7. **OpenClaw Identity:** The term "OpenClaw" appears in multiple contexts — as the FabricOS brand name (Section 1), as an agent deployment workload (RWX PVM docs), and possibly as a third-party tool. Clarify: is "OpenClaw" our multi-agent runtime, or is it an external dependency we integrate?
+8. **Karakeep as Default App:** Is Karakeep still a planned first-party workload, or was it an example during research? If planned, does it belong in the core FabricOS stack or as a user-installable addon?
+9. **`/fabric/bin/` vs Container-Native Promotion:** Biological CI/CD references skills being locked into an immutable `/fabric/bin/` path. But Talos has no mutable host filesystem. Where does a promoted skill actually land? Is it a new container image, a Git commit that Flux reconciles, or a sidecar injected into existing Pods?
+10. **seL4 on ARM64 Grace CPU:** The Tri-Brain architecture references seL4 as a Type-1 hypervisor backing System 2. Has seL4 been verified to run on the NVIDIA Grace (ARM v9.2-A) architecture? What's the current state of seL4 on GB10/Grace Blackwell?
+11. **MinIO vs Distributed CSI Timing:** When do we move beyond local-path-provisioner? Is MinIO the long-term answer for large storage, or does a distributed CSI driver (Longhorn, Ceph) take over in Stage 3? What triggers the migration?
+12. **Longhorn on Single-Node GX10:** Longhorn RWX is designed for multi-node clusters. On a single ASUS GX10, is Longhorn overkill? Does local-path-provisioner + hostPath suffice until Stage 2/3 scaling?
+13. **Fail-Safe Protocol Definition:** Edge nodes reference a "Fail-Safe Protocol" when the Left Brain drops — defaulting to local safe-stop or autonomous survival. What exactly are the safe-stop states? What triggers autonomous mode vs. hard stop? Needs concrete state machine definition.
+14. **Zenoh vs ROS 2 Migration:** The architecture replaces ROS 2/DDS with Zenoh. But existing robotics hardware ships with ROS 2 drivers. What's the compatibility strategy? Zenoh-ROS2 bridge, full rewrite, or dual-protocol support?
 
 ---
 
-## 12. KEY DESIGN PRINCIPLES
+## 13. KEY DESIGN PRINCIPLES
 
 1. **Host layer**: reachability + recovery (Talos extensions)
 2. **App layer**: product behavior (Kubernetes Services/Deployments)
@@ -263,10 +396,12 @@ fabric-os/
 5. **Tailscale everywhere**: private access without public exposure
 6. **Container-native OS**: the OS boots into the runtime; the application IS the container layer
 7. **Separation of concerns**: Fabric control plane never touches LLM inference directly; LLM restarts never take down the UI
+8. **Structured evaluation**: System 2 communicates only via JSON verdicts, never free text — preventing context rot
+9. **Risk-tiered access**: Not all actions need deep evaluation; fast-path for low-risk operations, deep eval only where safety demands it
 
 ---
 
-## 13. LOSSLESS USER INPUTS ARCHIVE
+## 14. LOSSLESS USER INPUTS ARCHIVE
 *(A chronological log of all prompts that shaped this architecture, ensuring complete grounding)*
 
 1. `"can we run nemotron on a dgx ?"`
