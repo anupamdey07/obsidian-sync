@@ -55,12 +55,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "FabriOS Whitepaper/Left Brain UI - Spatial Neural Node.md",
+                "file": "FabriOS Whitepaper/FabricOS Whitepaper v3.0 (Idea-Architecture-Specs).md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Left Brain UI - Spatial Neural Node"
+              "title": "FabricOS Whitepaper v3.0 (Idea-Architecture-Specs)"
             }
           }
         ],
@@ -213,8 +213,13 @@
   },
   "active": "e0cef25fba1f8aae",
   "lastOpenFiles": [
-    "FabriOS Whitepaper/RWX PVM File System.md",
     "FabriOS Whitepaper/Left Brain UI - Spatial Neural Node.md",
+    "FabriOS Whitepaper/FabricOS Whitepaper v3.0 (Idea-Architecture-Specs).md",
+    "/FabriOS Whitepaper/FabricOS Whitepaper v3.0 (Idea-Architecture-Specs).md",
+    "/FabriOS Whitepaper/FabricOS Whitepaper v2.0 (Consolidated).md",
+    "FabriOS Whitepaper/FabricOS Whitepaper v2.0 (Consolidated).md",
+    "/FabriOS Whitepaper",
+    "FabriOS Whitepaper/RWX PVM File System.md",
     "FabriOS Whitepaper/Data management.md",
     "FabriOS Whitepaper/Fabric Console and gateway.md",
     "FabriOS Whitepaper/Fabric Agent + Fabric UI + TalosOS.md",

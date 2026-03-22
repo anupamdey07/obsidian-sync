@@ -15,7 +15,7 @@
   "modelDiscovery": {
     "enabled": true,
     "autoUpdateInterval": 24,
-    "lastUpdate": 1773998049305,
+    "lastUpdate": 1774192481741,
     "fallbackToStatic": true
   },
   "allowSystemPromptOverride": false,
