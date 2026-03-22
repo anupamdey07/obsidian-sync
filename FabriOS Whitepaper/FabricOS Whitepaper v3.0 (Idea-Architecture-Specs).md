@@ -2,7 +2,7 @@
 ## The "OpenClaw" of the Physical Era
 
 **Date:** March 22, 2026
-**Author:** Onu (MachbarTech)
+**Author:** Onu 
 **Version:** 3.0 (Idea → Architecture → Specs)
 **Status:** Active Development (PoC Phase)
 
