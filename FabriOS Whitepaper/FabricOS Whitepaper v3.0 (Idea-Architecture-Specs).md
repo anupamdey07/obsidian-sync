@@ -1,5 +1,5 @@
 # FABRICOS WHITEPAPER
-## The "OpenClaw" of the Physical Era
+## The "OpenClaw" of the Personal/Pysical Device OS
 
 **Date:** March 22, 2026
 **Author:** Onu 
