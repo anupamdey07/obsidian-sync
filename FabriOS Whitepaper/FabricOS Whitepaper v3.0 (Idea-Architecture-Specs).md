@@ -48,7 +48,7 @@ A two-brain system (creative + deterministic) creates a single point of failure:
 
 ---
 
-## 3. THE TWO-FACE INTERFACE (OPENCLAW or HERMES AGENT based UX)
+## 3. THE TWO-FACE INTERFACE (HERMES AGENT based UX)
 
 FabricOS presents a dual UI for operators — a fluid creative face and a deterministic terminal face, both served by `fabric-ui` Pods.
 
