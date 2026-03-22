@@ -480,57 +480,6 @@ Stage 3: Full GitOps
 
 ---
 
-## 14. LOSSLESS USER INPUTS ARCHIVE
-
-*(A chronological log of all prompts that shaped this architecture, ensuring complete grounding)*
-
-1. `"can we run nemotron on a dgx ?"`
-2. `"it seems like in not so long time we will have devices..." [full vision]`
-3. `"please be my a chief of staff to build this vision"`
-4. `"please the smartest visionary... help me critique..."`
-5. `"now that you know my vision, help to envision a complete new execution..."`
-6. `"a few. notes to add - a dual flip interface, like a crystal touchball..."`
-7. `"help write the draft, whitepaper. and keep Version control..."`
-8. `"all semandtic data are on the right left brain, all sits like docker..."`
-9. `"lets deploy that same principle of the paper on this chat thread..."`
-10. `"so as long as i say anything after the left keyword..."`
-11. `"can you save this in memory so i can retrieve this context..."`
-12. `"Great regenerate the entire text with one more section..."`
-13. `"Great regenerate the entire text with one more section. please include all the texts i input..."`
-14. `"Left lets debate the entire paper from the lense of the smartest researcher..."`
-15. `"Right - docker and wasm usage combination. We need something in future..."`
-16. `"Right - the left brain interface the fluid text vla based interface would have simple commands like / and ."`
-17. `"Right - The right interface would be a classic bash, terminal linux like interface, highly deterministic"`
-18. `"Right - whenever a cold start the job of the brain system is two fols 1) to understand itself... 2) to understand the hardware it is in..."`
-19. `"Left - avocado os vs sel4 architecture and why it evolved out of what market need.gap"`
-20. `"Left - can me make the sel4 embedded into he sustem 2, which is the security protocol between left and right brain, we can train a smal phi like model for this?"`
-21. `"Right- Promotion happen? Is it a human approval? Or does the Right Brain run a Deterministic Linter (like a CI/CD pipeline) - yes something like this"`
-22. `"Left - how would the hardware self audit happen... How can the llm... help to understand and adapt to hardware"`
-23. `"Right- Tri-Brain Architecture. By nesting seL4 as the hypervisor/enforcer for the System 2 supervisor..."`
-24. `"Right - if linux was the opx of the era, and open claw the new os of era..."`
-25. `"Right -our poc use case is on jetson and dgx and esp32s3 and ros enabled. But this should run on envery other raspberry pi and old phones..."`
-26. `"Right - the right deterministic kernel terminal like interface, can have plugins like vscode right - the left brain side interface can access a perplexity computer via a plugin api call /"`
-27. `"Right - Testing... minici cd pipelines within left brain... stricter cicd for right... combination of docker, drivers, python"`
-28. `"Left - help me understand zenoh, yocto avocado base, and how it compare to ros 2 and lora technology"`
-29. `"Right - cold start situation, when a new hard comes the new hardware tested libraries goes to the zenoh right brain..."`
-30. `"Right- The Configuration: Left Brain: Remote API / Jetson Core. System 2: Local Phi-4-mini... Right Brain: Local GPIO control via Avocado OS."`
-31. `"Left - slightly off topic from the paper but related i am planning for a hardware addition,should i go for the gx10 4tb version or the 2tb... gb10 hardware and cuda and nim..."`
-32. `"Left - great 4tb sounds like the right choice. Though one question debate and critique the asus gx10 vs the nvdia spark. Price is almost 1k more"`
-33. `"-left The Spark isn't just a card; it's a ticket into NVIDIA's enterprise walled garden., research and find me 5 disadvantages..."`
-34. `"Can you verify with grounded info, ac Avocado os can run on gx10 asus"`
-35. `"- left, ok y ah the extra 2tb makes sense, but i am thinking's to add more ssd 2tb after market later if i need more space. Can you please check if feasible on the asus"`
-36. `"Is buying a returned and tested on galaxus . De a good idea has the 24 m warranty etc... ASUS GX10-GG0027BN 4000 GB, 128 GB, NVIDIA Blackwell..."`
-37. `"Can we purchase the 1 tb version gx10 asus and upgrade with a 8tb ssd nvme. grounded answer only, i think it has only 1 slot thoroughly check with user reviews"`
-38. `"Now give me a full document draft of the whitepaper. All chats Add a section if any topica was discussed but not included in the paper..."`
-39. `"Can you draft in a pdf."`
-40. `"Export the entire whitepaperr we discussed, and any other content important and not added as a running list at the end. Export as md"`
-41. `"can we pickup on writing the fabric OS whitepaper"`
-42. `"- Merge/consolidate v2 + the Talos architecture pieces into one unified whitepaper"`
-43. `"Lets map these to our later draft, and see whats not already included in latest draft, and add where ever it is aligned... Where its not aligned add those topics to the running open questions tracker"`
-44. `"We want to largely have these three broad areas: Idea, architecture, specs. Lets adapt with the new merged paper and create a new version. Lets keep strict version control."`
-
----
-
 # VERSION HISTORY
 
 | Version | Date | Changes |
