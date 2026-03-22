@@ -1,5 +1,5 @@
 # FABRICOS WHITEPAPER
-## The "OpenClaw" style OS for Personal / Pysical Devices
+## The "OpenClaw" style OS for Physical devices, Home Lab and ML
 
 **Date:** March 22, 2026
 **Author:** Onu 
